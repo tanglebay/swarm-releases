@@ -36,11 +36,23 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
         read -p "Please enter your username: " keyboardInputUsername </dev/tty
         echo ""
         read -s -p "Please enter your password: " keyboardInputPassword </dev/tty
+        echo ""
         if [ ! -z "$keyboardInputUsername" ] && [ ! -z "$keyboardInputPassword" ]; then
             latestSwarmVersion=$(curl --max-time 5 -s https://api.github.com/repos/TangleBay/swarm/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
             latestSwarmVersion=$(echo $latestSwarmVersion | tr -d 'v')
             checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
             if [ "$checkSwarmUpdateAuth" = "200" ] && [ ! -z "$latestSwarmVersion" ]; then
+                clear
+                echo ""
+                echo "     _______          __     _____  __  __ "
+                echo "    / ____\ \        / /\   |  __ \|  \/  |"
+                echo "   | (___  \ \  /\  / /  \  | |__) | \  / |"
+                echo "    \___ \  \ \/  \/ / /\ \ |  _  /| |\/| |"
+                echo "    ____) |  \  /\  / ____ \| | \ \| |  | |"
+                echo "   |_____/    \/  \/_/    \_\_|  \_\_|  |_|"
+                echo ""                                            
+                echo ""                                            
+                echo "###################################################"
                 read -p "Do you want to install SWARM now?(Y/n) " keyboardInput </dev/tty
                 keyboardInput=$(echo $keyboardInput | tr '[:upper:]' '[:lower:]')
                 if [ "$keyboardInput" = "y" ] || [ "$keyboardInput" = "yes" ] || [ -z "$keyboardInput" ]; then
