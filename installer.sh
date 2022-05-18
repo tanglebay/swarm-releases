@@ -75,7 +75,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                     echo -e $TEXT_RED_B && echo "-> Verify checksum of SWARM..." && echo -e $TEXT_RESET
                     echo ""
                     swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
-                    swarmUpdateChkSum=$(shasum -a 512 $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz)
+                    swarmUpdateChkSum=$(shasum -a 512 $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz | awk '{ print $1 }')
                     if [ "$swarmChkSum" = "$swarmUpdateChkSum" ]; then
                         ( cd $swarmTmp/v$latestSwarmVersion ; sudo tar -xzf $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz ) > /dev/null 2>&1
                         if [ -f "$swarmTmp/v$latestSwarmVersion/swarm/swarm" ]; then
