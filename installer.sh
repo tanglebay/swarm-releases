@@ -84,7 +84,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                             if [ -f "/var/lib/swarm/swarm" ]; then
                                 echo -e $TEXT_RED_B && echo "-> Loading env..." && echo -e $TEXT_RESET
                                 source /var/lib/swarm/environment
-                                sudo chmod +x $swarmHome/swarm $swarmPlugins/watchdog
+                                sudo chmod +x /var/lib/swarm/swarm /var/lib/swarm/plugins/watchdog
                                 echo -e $TEXT_RED_B && echo "-> Installing watchdog..." && echo -e $TEXT_RESET
                                 ( crontab -l | grep -v -F "$watchdogCronCmd" ; echo "$watchdogCronJob" ) | crontab -
                             fi
@@ -92,10 +92,10 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                             if [ -f "/var/lib/swarm/swarm" ]; then
                                 source /var/lib/swarm/environment
                                 echo -e $TEXT_RED_B && echo "-> Installing aliases..." && echo -e $TEXT_RESET
-                                source $swarmModules/swarmAlias
+                                source /var/lib/swarm/modules/swarm/swarmAlias
                                 if [ "$swarmAliasExists" = "true" ]; then
                                     echo -e $TEXT_RED_B && echo "-> Starting SWARM..." && echo -e $TEXT_RESET
-                                    source $swarmHome/swarm
+                                    source /var/lib/swarm/swarm
                                 fi
                             else
                                 echo ""
