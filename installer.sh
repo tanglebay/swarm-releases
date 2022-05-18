@@ -70,11 +70,11 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                     if [ ! -d "$swarmTmp" ]; then
                         sudo mkdir -p $swarmTmp/v$latestSwarmVersion > /dev/null 2>&1
                     fi
-                    sudo wget -q -O $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz https://$swarmUpdateAuthUser:$swarmUpdateAuthPwd@tanglebay.com/download/swarm/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz
+                    sudo wget -q -O $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz
                     echo ""
                     echo -e $TEXT_RED_B && echo "-> Verify checksum of SWARM..." && echo -e $TEXT_RESET
                     echo ""
-                    swarmChkSum=$(curl -s https://$swarmUpdateAuthUser:$swarmUpdateAuthPwd@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
+                    swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
                     swarmUpdateChkSum=$(shasum -a 512 $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz)
                     if [ "$swarmChkSum" = "$swarmUpdateChkSum" ]; then
                         ( cd $swarmTmp/v$latestSwarmVersion ; sudo tar -xzf $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz ) > /dev/null 2>&1
