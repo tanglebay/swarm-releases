@@ -109,7 +109,6 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                                     echo ""
                                     echo -e $TEXT_RED_B && echo "-> SWARM successfully installed." && echo -e $TEXT_RESET
                                     echo ""
-                                    read -rsn1 -p "Press any key to exit."
                                 fi
                             else
                                 echo ""
