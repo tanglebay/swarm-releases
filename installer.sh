@@ -40,7 +40,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
         if [ ! -z "$keyboardInputUsername" ] && [ ! -z "$keyboardInputPassword" ]; then
             latestSwarmVersion=$(curl --max-time 5 -s https://api.github.com/repos/TangleBay/swarm-releases/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
             latestSwarmVersion=$(echo $latestSwarmVersion | tr -d 'v')
-            checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
+            checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
             if [ "$checkSwarmUpdateAuth" = "200" ] && [ ! -z "$latestSwarmVersion" ]; then
                 clear
                 echo ""
@@ -70,11 +70,11 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                     if [ ! -d "$swarmTmp" ]; then
                         sudo mkdir -p $swarmTmp/v$latestSwarmVersion > /dev/null 2>&1
                     fi
-                    sudo wget -q -O $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz
+                    sudo wget -q -O $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/swarm/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz
                     echo ""
                     echo -e $TEXT_RED_B && echo "-> Verify checksum of SWARM..." && echo -e $TEXT_RESET
                     echo ""
-                    swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
+                    swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
                     swarmUpdateChkSum=$(shasum -a 512 $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz | awk '{ print $1 }')
                     if [ "$swarmChkSum" = "$swarmUpdateChkSum" ]; then
                         ( cd $swarmTmp/v$latestSwarmVersion ; sudo tar -xzf $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz ) > /dev/null 2>&1
