@@ -38,7 +38,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
         read -s -p "Please enter your password: " keyboardInputPassword </dev/tty
         echo ""
         if [ ! -z "$keyboardInputUsername" ] && [ ! -z "$keyboardInputPassword" ]; then
-            latestSwarmVersion=$(curl --max-time 5 -s https://api.github.com/repos/TangleBay/swarm/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+            latestSwarmVersion=$(curl --max-time 5 -s https://api.github.com/repos/TangleBay/swarm-releases/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
             latestSwarmVersion=$(echo $latestSwarmVersion | tr -d 'v')
             checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@tanglebay.com/download/swarm/v$latestSwarmVersion/checksum.txt)
             if [ "$checkSwarmUpdateAuth" = "200" ] && [ ! -z "$latestSwarmVersion" ]; then
@@ -53,6 +53,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                 echo ""                                            
                 echo ""                                            
                 echo "###################################################"
+                echo ""
                 read -p "Do you want to install SWARM now?(Y/n) " keyboardInput </dev/tty
                 keyboardInput=$(echo $keyboardInput | tr '[:upper:]' '[:lower:]')
                 if [ "$keyboardInput" = "y" ] || [ "$keyboardInput" = "yes" ] || [ -z "$keyboardInput" ]; then
@@ -67,7 +68,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
 
                     echo -e $TEXT_RED_B && echo "-> Downloading SWARM..." && echo -e $TEXT_RESET
                     if [ ! -d "$swarmTmp" ]; then
-                        sudo mkdir -p $swarmTmp > /dev/null 2>&1
+                        sudo mkdir -p $swarmTmp/v$latestSwarmVersion > /dev/null 2>&1
                     fi
                     sudo wget -q -O $swarmTmp/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz https://$swarmUpdateAuthUser:$swarmUpdateAuthPwd@tanglebay.com/download/swarm/v$latestSwarmVersion/swarm-v$latestSwarmVersion.tar.gz
                     echo ""
