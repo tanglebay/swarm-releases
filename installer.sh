@@ -91,11 +91,25 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
 
                             if [ -f "/var/lib/swarm/swarm" ]; then
                                 source /var/lib/swarm/environment
-                                echo -e $TEXT_RED_B && echo "-> Installing aliases..." && echo -e $TEXT_RESET
-                                source /var/lib/swarm/modules/swarm/swarmAlias
-                                if [ "$swarmAliasExists" = "true" ]; then
-                                    echo -e $TEXT_RED_B && echo "-> Starting SWARM..." && echo -e $TEXT_RESET
-                                    source /var/lib/swarm/swarm
+                                if [ ! -f "/etc/profile.d/00-swarm.sh" ]; then
+                                    echo -e $TEXT_RED_B && echo "-> Installing aliases..." && echo -e $TEXT_RESET
+                                    sudo cat /var/lib/swarm/templates/swarm/00-swarm.sh > /etc/profile.d/00-swarm.sh
+                                    if ! (grep -o "alias swarm='sudo /var/lib/swarm/swarm'" /root/.bashrc > /dev/null 2>&1); then
+                                        echo "alias swarm='sudo /var/lib/swarm/swarm'" >> /root/.bashrc
+                                    fi
+                                    echo ""
+                                    echo -e $TEXT_RED_B && echo "-> SWARM successfully installed and alias \"swarm\" has been added to your system!" &&
+                                    echo "   To make the change effective you will be logged out once now. You can then log in again and use the command \"swarm\" (without the quotes) to run the script." && echo -e $TEXT_RESET
+                                    echo ""
+                                    clear
+                                    user=$(who | awk '{ print $1 }')
+                                    sudo pkill -KILL -u $user
+                                    exit 0
+                                else
+                                    echo ""
+                                    echo -e $TEXT_RED_B && echo "-> SWARM successfully installed." && echo -e $TEXT_RESET
+                                    echo ""
+                                    read -rsn1 -p "Press any key to exit."
                                 fi
                             else
                                 echo ""
