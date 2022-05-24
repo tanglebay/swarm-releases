@@ -9,28 +9,15 @@ SWARM is a script that allows you to easily install and manage an IOTA node. The
 </p>
 
 <p align="center">
-    <a href="https://twitter.com/TANGLEBAY" style="text-decoration:none;"><img src="https://img.shields.io/badge/Twitter-9cf.svg?logo=twitter" alt="Twitter"></a>
+    <a href="https://tanglebay.com/swarm" style="text-decoration:none;"><img src="https://img.shields.io/badge/SWARM-Website-9cf.svg?logo=SWARM-Website" alt="SWARM-Website"></a>
+    <a href="https://twitter.com/iota_swarm" style="text-decoration:none;"><img src="https://img.shields.io/badge/Twitter-9cf.svg?logo=twitter" alt="Twitter"></a>
     <a href="https://discord.tanglebay.com/" style="text-decoration:none;"><img src="https://img.shields.io/badge/Discord-9cf.svg?logo=discord" alt="Discord"></a>
 </p>
 
 ---
 
-## Installation
-
-### Requirements
-- VPS (2Core/4GB/40GB) **(GoShimmer/Bee cannot be used on ARM)**
-- Ubuntu 20.04 LTS (64Bit)
-- An existing (own) domain
-
-**Download the latest release version of SWARM and run it. Do the following steps:**
-
-1. Install SWARM with the Installer
-```shell
-sudo ${SHELL:-sh} -c "$(curl -Ls https://raw.githubusercontent.com/tanglebay/swarm-releases/main/installer.sh)"
-```
-2. After installting SWARM you can execute it with typing `swarm`
-
-**Notice**: Please make sure that your node is properly secured (e.g. firewall, SSH KeyAuth, regular system updates).
+## Get SWARM
+<b>Visit <a href="https://tanglebay.com/swarm">SWARM Website</a></b>
 
 ---
 
