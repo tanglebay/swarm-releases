@@ -105,7 +105,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                                     echo ""
                                     clear
                                     user=$(who | awk '{ print $1 }')
-                                    sudo pkill -KILL -u $user
+                                    sudo pkill -KILL -u $user > /dev/null 2>&1
                                     exit 0
                                 else
                                     echo ""
