@@ -87,8 +87,11 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                                 sudo chmod +x /var/lib/swarm/swarm /var/lib/swarm/plugins/watchdog
                                 echo -e $TEXT_RED_B && echo "-> Installing watchdog..." && echo -e $TEXT_RESET
                                 ( crontab -l | grep -v -F "$watchdogCronCmd" ; echo "$watchdogCronJob" ) | crontab -
-                                sudo sed -i 's~^swarmAuthUser=.*~swarmAuthUser="'$keyboardInputUsername'"~g' $swarmConfigs/swarm.cfg
-                                sudo sed -i 's~^swarmAuthPwd=.*~swarmAuthPwd="'$keyboardInputPassword'"~g' $swarmConfigs/swarm.cfg
+                                sudo sed -i 's~^swarmAuthUser=.*~swarmAuthUser="'$keyboardInputUsername'"~g' $swarmConfigs/swarm.cfg 2>/dev/null
+                                sudo sed -i 's~^swarmAuthPwd=.*~swarmAuthPwd="'$keyboardInputPassword'"~g' $swarmConfigs/swarm.cfg 2>/dev/null
+                                # TMP
+                                sudo sed -i 's~^swarmUpdateAuthUser=.*~swarmUpdateAuthUser="'$keyboardInputUsername'"~g' $swarmConfigs/swarm.cfg 2>/dev/null
+                                sudo sed -i 's~^swarmUpdateAuthPwd=.*~swarmUpdateAuthPwd="'$keyboardInputPassword'"~g' $swarmConfigs/swarm.cfg 2>/dev/null
                             fi
 
                             if [ -f "/var/lib/swarm/swarm" ]; then
