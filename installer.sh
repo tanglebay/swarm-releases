@@ -65,7 +65,11 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                     sudo apt dist-upgrade -y
                     sudo apt upgrade -y
                     sudo apt autoremove -y
-
+                    echo -e $TEXT_RED_B && echo "-> Installing packages..." && echo -e $TEXT_RESET
+                    if ! [ -x "$(command -v whiptail)" ] > /dev/null 2>&1; then
+                        sudo apt -qq install whiptail -y > /dev/null 2>&1
+                    fi
+                    sudo apt  install software-properties-common -y
                     echo -e $TEXT_RED_B && echo "-> Downloading SWARM..." && echo -e $TEXT_RESET
                     if [ ! -d "$swarmTmp" ]; then
                         sudo mkdir -p $swarmTmp/installer > /dev/null 2>&1
