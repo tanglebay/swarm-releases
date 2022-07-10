@@ -112,7 +112,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                                         echo -e $TEXT_RED_B && echo "-> SWARM successfully installed and alias \"swarm\" has been added to your system!" &&
                                         echo "   To make the change effective you will be logged out once now. You can then log in again and use the command \"swarm\" (without the quotes) to run the script." && echo -e $TEXT_RESET
                                         echo ""
-                                        read -p "Do you want to install SWARM now?(Y/n) " keyboardInput </dev/tty
+                                        read -p "Do you want to start SWARM now?(Y/n) " keyboardInput </dev/tty
                                         keyboardInput=$(echo $keyboardInput | tr '[:upper:]' '[:lower:]')
                                         if [ "$keyboardInput" = "y" ] || [ "$keyboardInput" = "yes" ] || [ -z "$keyboardInput" ]; then
                                             source /var/lib/swarm/swarm
