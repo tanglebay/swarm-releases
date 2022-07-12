@@ -40,7 +40,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
             read -s -p "Please enter your password: " keyboardInputPassword </dev/tty
             echo ""
             if [ ! -z "$keyboardInputUsername" ] && [ ! -z "$keyboardInputPassword" ]; then
-                latestSwarmVersion=$(curl --max-time 5 -s https://api.github.com/repos/TangleBay/swarm-releases/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+                latestSwarmVersion=$(curl --max-time 5 -Ls https://cdn.tanglebay.com/swarm/version/stable | head -n 1)
                 latestSwarmVersion=$(echo $latestSwarmVersion | tr -d 'v')
                 checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/test.file)
                 if [ "$checkSwarmUpdateAuth" = "200" ] && [ ! -z "$latestSwarmVersion" ]; then
