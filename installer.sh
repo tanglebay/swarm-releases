@@ -42,7 +42,7 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
             if [ ! -z "$keyboardInputUsername" ] && [ ! -z "$keyboardInputPassword" ]; then
                 latestSwarmVersion=$(curl --max-time 5 -Ls https://cdn.tanglebay.com/swarm/version/stable | head -n 1)
                 latestSwarmVersion=$(echo $latestSwarmVersion | tr -d 'v')
-                checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/test.file)
+                checkSwarmUpdateAuth=$(curl -s -o /dev/null -w "%{http_code}" https://$keyboardInputUsername:$keyboardInputPassword@cdn.tanglebay.com/test.file)
                 if [ "$checkSwarmUpdateAuth" = "200" ] && [ ! -z "$latestSwarmVersion" ]; then
                     clear
                     echo ""
@@ -76,11 +76,11 @@ if [ ! -f "/var/lib/swarm/swarm" ]; then
                         if [ ! -d "$swarmTmp" ]; then
                             sudo mkdir -p $swarmTmp/installer > /dev/null 2>&1
                         fi
-                        sudo wget -q -O $swarmTmp/installer/swarm-latest.tar.gz https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/swarm/latest/swarm-latest.tar.gz
+                        sudo wget -q -O $swarmTmp/installer/swarm-latest.tar.gz https://$keyboardInputUsername:$keyboardInputPassword@cdn.tanglebay.com/swarm/latest/swarm-latest.tar.gz
                         echo ""
                         echo -e $TEXT_RED_B && echo "-> Verify checksum of SWARM..." && echo -e $TEXT_RESET
                         echo ""
-                        swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@service.tanglebay.com/download/swarm/latest/checksum.txt)
+                        swarmChkSum=$(curl -s https://$keyboardInputUsername:$keyboardInputPassword@cdn.tanglebay.com/swarm/latest/checksum.txt)
                         swarmUpdateChkSum=$(shasum -a 512 $swarmTmp/installer/swarm-latest.tar.gz | awk '{ print $1 }')
                         if [ "$swarmChkSum" = "$swarmUpdateChkSum" ]; then
                             ( cd $swarmTmp/installer ; sudo tar -xzf $swarmTmp/installer/swarm-latest.tar.gz ) > /dev/null 2>&1
